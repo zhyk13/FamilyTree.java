@@ -1,10 +1,11 @@
+import java.io.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human {
+public class Human implements Serializable {
     Integer id;
     String name;
     LocalDate birthDate, deathDate;
@@ -119,5 +120,15 @@ public class Human {
             stringBuilder.append("Дети: " + tmp.name + "\n");
         }
         return  stringBuilder.toString();
+    }
+
+    public void saveToFile(String filename) throws IOException, ClassNotFoundException {
+        ObjectOutputStream outputStrim = new ObjectOutputStream(new FileOutputStream(filename));
+        outputStrim.writeObject(this);
+    }
+
+    public Human loadFromFile(String filename) throws IOException, ClassNotFoundException{
+        ObjectInputStream inputStrim = new ObjectInputStream(new FileInputStream(filename));
+        return (Human) inputStrim.readObject();
     }
 }

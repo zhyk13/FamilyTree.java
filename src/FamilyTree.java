@@ -1,8 +1,8 @@
-import java.time.format.DateTimeFormatter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FamilyTree {
+public class FamilyTree implements Serializable {
     Integer humansId = 1;
     List<Human> familyTree = new ArrayList<>();
 
@@ -57,5 +57,15 @@ public class FamilyTree {
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public void saveToFile(String filename) throws IOException, ClassNotFoundException {
+        ObjectOutputStream outputStrim = new ObjectOutputStream(new FileOutputStream(filename));
+        outputStrim.writeObject(this);
+    }
+
+    public static FamilyTree loadFromFile(String filename) throws IOException, ClassNotFoundException{
+        ObjectInputStream inputStrim = new ObjectInputStream(new FileInputStream(filename));
+        return (FamilyTree) inputStrim.readObject();
     }
 }

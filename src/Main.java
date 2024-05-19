@@ -1,7 +1,8 @@
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         FamilyTree familyTree = new FamilyTree();
 
         Human i = new Human();
@@ -62,8 +63,12 @@ public class Main {
         familyTree.setHuman(kidNikolay);
         familyTree.setHuman(kidMariya);
 
-        System.out.println(i);
+//        System.out.println(i);
         System.out.println(familyTree);
+
+        familyTree.saveToFile("familyTree.ser");
+        FamilyTree loadedFamilyTree = FamilyTree.loadFromFile("familyTree.ser");
+        System.out.println(loadedFamilyTree);
 
 
 
